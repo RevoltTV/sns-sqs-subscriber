@@ -13,11 +13,11 @@ export default function (config = {
     // Required parameters
     queue: '',
     subscriptions: [],
-    topic: '',
-
-    sns: new AWS.SNS(),
-    sqs: new AWS.SQS()
+    topic: ''
 }) {
+    config.sns = config.sns || new AWS.SNS();
+    config.sqs = config.sqs || new AWS.SQS();
+
     // Validate configuration
     if (!config.topic) {
         throw new TypeError('topic is required');

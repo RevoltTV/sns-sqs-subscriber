@@ -9,7 +9,7 @@ function getDefaultPolicy(queueArn) {
         Statement: [{
             Sid: `Sid${new Date().getTime()}`,
             Effect: 'Allow',
-            Principcal: '*',
+            Principal: '*',
             Action: 'SQS:SendMessage',
             Resource: queueArn,
             Condition: {
@@ -63,7 +63,7 @@ export default function subscribe(queue, topic, sns, sqs) {
             Protocol: 'sqs',
             TopicArn: topicArn,
             Endpoint: queue.arn
-        })
+        }).promise()
         .then(({ SubscriptionArn }) => {
             return sns.setSubscriptionAttributes({
                 SubscriptionArn,
