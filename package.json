@@ -1,6 +1,6 @@
 {
   "name": "@revolttv/sns-sqs-subscriber",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Utility library that facilitates creating topics in Amazon's SNS, queues in SQS, and subscribing queues to topics",
   "main": "lib/index.js",
   "scripts": {
