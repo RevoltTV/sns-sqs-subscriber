@@ -32,9 +32,11 @@ function updatePolicy(originalPolicy, queue, topicArn, sqs) {
         policy.Statement[0].Condition.ArnEquals['aws:SourceArn'] = [policy.Statement[0].Condition.ArnEquals['aws:SourceArn']];
     }
 
-    if (!_.find(policy.Statement[0].Condition.ArnEquals['aws.SourceArn'], topicArn)) {
+    if (!_.find(policy.Statement[0].Condition.ArnEquals['aws.SourceArn'], (arn) => { return arn === topicArn; })) {
         policy.Statement[0].Condition.ArnEquals['aws:SourceArn'].push(topicArn);
     }
+
+    policy.Statement[0].Condition.ArnEquals['aws:SourceArn'] = _.uniq(policy.Statement[0].Condition.ArnEquals['aws:SourceArn']);
 
     return sqs.setQueueAttributes({
         QueueUrl: queue.url,
